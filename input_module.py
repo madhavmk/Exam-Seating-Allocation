@@ -1,6 +1,7 @@
 import json
 import csv
 
+
 def read_configuration_file():
     
     with open('configuration.json') as open_json_file:
@@ -33,10 +34,10 @@ def read_subject_details():
     csv_array=[]
     with open(configuration_data["file_location"]["subject-details"]) as subject_details_file:
         subject_details_file = csv.reader(subject_details_file)
-        print(subject_details_file)
+        #print(subject_details_file)
         for row in subject_details_file:
             csv_array.append(list(row))
-    print(csv_array)
+    #print(csv_array)
 
     for i in range(len(csv_array)):
         subject_column.append(str(csv_array[i][0]))
@@ -47,8 +48,8 @@ def read_subject_details():
     subject_row.pop(0)
     subject_column.pop(0)
 
-    print(subject_column)
-    print(subject_row)
+    #print(subject_column)
+    #print(subject_row)
 
     for i in range(len(subject_column)):
         subject_dictionary=dict()
@@ -56,16 +57,13 @@ def read_subject_details():
             subject_dictionary[subject_row[j]]=csv_array[i+1][j+1]
         subject_subject_dictionary[subject_column[i]]=subject_dictionary
 
+    '''
     print('SUBJECT SUBJECT DICTIONARY')
 
     for key in subject_subject_dictionary:
         print('key : ',key,'\n',subject_subject_dictionary[key],'\n\n')
+    '''
 
+    return subject_subject_dictionary
 
-
-
-    
-
-
-    return "LOL"
-
+subject_subject_dictionary_constant=read_subject_details()
