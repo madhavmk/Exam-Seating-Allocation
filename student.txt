@@ -1,0 +1,17 @@
+
+for proof of concept lets consider 7*7 or 5*5 students 
+should complete the list
+
+pes120181,cs,daa
+pes120182,cs,daa
+pes120183,cs,daa
+pes120184,cs,daa
+pes120185,cs,daa
+
+pes120186,ec,signals
+pes120187,ec,signals
+pes120188,ec,signals
+pes120189,ec,signals
+pes1201810,ec,signals
+
+
