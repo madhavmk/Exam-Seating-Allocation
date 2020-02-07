@@ -53,11 +53,14 @@ def fitness_value(s1,s2):   ### THIS IS THE FUNCTION TO CALL  s1->[row,column,su
     subject_similarity_coefficient=subject_similarity(s1[2],s2[2])
     #print("subject_similarity_coefficient ",subject_similarity_coefficient)
 
-    fitness_s1_s2 = visibility_coefficient * distance_coefficient * subject_similarity_coefficient
+    subject_dissimilarity_coefficient = 1 - subject_similarity_coefficient
+    non_visibility_coefficient = 1 - visibility_coefficient
+    distance_coefficient = distance_coefficient/2.8
+    fitness_s1_s2 = non_visibility_coefficient * distance_coefficient * subject_dissimilarity_coefficient
     #print('fitness s1 s2 ',fitness_s1_s2)
 
     return fitness_s1_s2
-
+"""
 if __name__=="__main__":
 
     v1=[1,1,'A']
@@ -70,3 +73,4 @@ if __name__=="__main__":
     for i in arange(-2,2,0.1):
         print(i,' ',gaussian(i,0,1))
     '''
+"""
