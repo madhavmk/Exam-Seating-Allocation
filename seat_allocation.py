@@ -166,12 +166,19 @@ def student_fitness(seat_location,srn,chromosome):
         s1=[seat_row,seat_col,subject_student[list_of_students.index(srn)]]
         s2=[s_row,s_col,subject_student[list_of_students.index(srns)]]
         student_fitness_value = fitness_calculation.fitness_value(s1,s2)
+        #student_fitness_value = 1 / student_fitness_value
+        """
+        try:
+            student_fitness_value = 1 / student_fitness_value
+        except:
+            student_fitness_value = 5"""
         # * get_visibility(seat_row,seat_col,s_row,s_col) * get_subject_similarity(student_branch,student_subject,s_branch,s_subject)
 
         list_of_fitness_values.append(student_fitness_value)
 
     #print("FITNESS >>>> ",list_of_fitness_values)
-    return min(list_of_fitness_values)
+    #print(list_of_fitness_values)
+    return max(list_of_fitness_values)
     
 
 
@@ -192,7 +199,7 @@ def get_fintness(chromosome):
 
     indivial_student_fitness = [student_fitness(chromosome[i],list_of_students[i],chromosome) for i in range(len(list_of_students))]
 
-    print(sum(indivial_student_fitness)/len(list_of_students))
+    #print(sum(indivial_student_fitness)/len(list_of_students))
     return sum(indivial_student_fitness)/len(list_of_students)
 
 # n chromosomes will give n new chromosomes
@@ -207,33 +214,54 @@ def genetic_crossover(current_population,length_of_chromosome):
     #input()
     #randomly select two parents and produce an offspring
 
+    #print(population)
     while(len(population) != 0):
 
         a = random.randint(0,len(population)-1)
-        parent_1 = population[a]
+        parent_1 = copy.deepcopy(population[a])
         population.pop(a)
         #print("len of population ",len(population))
         #input()
         b = random.randint(0,len(population)-1)
-        parent_2 = population[b]
+        parent_2 = copy.deepcopy(population[b])
         population.pop(b)
 
         offspring_1 = []
         offspring_2 = []
 
         crossover_point = random.randint(1,length_of_chromosome-2)
+        offspring_1 = parent_1[0:crossover_point]
+        #print("offpring 1 ",offspring_1)
+        offspring_2 = parent_2[0:crossover_point]
+        
+        '''
+        #offspring_1.extend(parent_2[crossover_point:length_of_chromosome])
+        #offspring_2.extend(parent_1[crossover_point:length_of_chromosome])
+        '''
 
-        offspring_1 = parent_1[0:crossover_point].extend(parent_2[crossover_point:length_of_chromosome])
-        offspring_2 = parent_2[0:crossover_point].extend(parent_1[crossover_point:length_of_chromosome])
+        #print(len(parent_1),len(parent_2)," >>>> ",length_of_chromosome)
+        
 
+        
+        for seat in parent_2:
+            if not(seat in offspring_1):
+                offspring_1.append(seat)
+        
+        for seat in parent_1:
+            if not(seat in offspring_2):
+                offspring_2.append(seat)
+        
         list_of_offsprings.append(offspring_1)
         list_of_offsprings.append(offspring_2)
+        #print(len(offspring_1),len(offspring_2),"...\n\n");
 
+    
     return list_of_offsprings
 
 def genetic_mutation(current_population,length_of_chromosome):
 
     population = copy.deepcopy(current_population)
+    #print(population)
 
     for i in range(len(population)):
 
@@ -257,12 +285,16 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     population=[]
     population.append(initial_chromosome)
 
-    for i in range(population_size):
+    for i in range(population_size-1):
+        #print("len of population ",len(population)," ")
+        #chromosome_to_generate_random = random.randint(0,len(population)-1)
+        #print("population of ",i,"      ",population,"\n\n")
+        t = copy.deepcopy(population[i])
 
-        chromosome_to_generate_random = random.randint(0,len(population)-1)
-
-        #population.append(random.shuffle(population[chromosome_to_generate_random]))
-        population.append(initial_chromosome)
+        random.shuffle(t)
+        population.append(t)
+        #print("len of population ",len(population),"\n")
+        #population.append(initial_chromosome)
 
     #now initial population is ready
 
@@ -280,13 +312,14 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         selected_chromosomes = [population[i] for i in top_fitness_indexes]
 
         new_chromosomes = genetic_crossover(selected_chromosomes,length_of_chromosome)
-        new_chromosomes = genetic_mutation(selected_chromosomes,length_of_chromosome)
+        #print("new ",new_chromosomes)
+        new_chromosomes = genetic_mutation(new_chromosomes,length_of_chromosome)
 
         population = selected_chromosomes
         for i in new_chromosomes:
             population.append(i)
         
-        #print(population)
+        print(population[top_fitness_indexes[0]],"\n\n>>",population[-1])
         print("\n\n\n")
 
         current_generation+=1
@@ -294,6 +327,6 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,10,300)
+a = genetic(15,allocated_seats,12,200)
 #b = genetic()
 print(a)
