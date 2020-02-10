@@ -50,8 +50,6 @@ allocated_seats = ['1,1,:1,1','1,1,:1,2','1,1,:1,3','1,1,:2,1','1,1,:2,2','1,1,:
 #initial fill in all seats available
 
 def get_distance(row1,col1,row2,col2):
-    
-
     return ((row1-row2)**2 + (col1-col2)**2)**0.5
     
 def get_visibility(row1,col1,row2,col2):
