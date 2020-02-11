@@ -138,6 +138,21 @@ def student_fitness(seat_location,srn,chromosome):
             seats_to_compare.append(s6)
         except:
             pass
+
+        try:
+            s7 = seat_fr + ":" + str(seat_row + i) + "," + str(seat_col - i)
+            a=get_student_srn(s7)
+            seats_to_compare.append(s7)
+        except:
+            pass
+
+        try:
+            s8 = seat_fr + ":" + str(seat_row - i) + "," + str(seat_col + i)
+            a=get_student_srn(s8)
+            seats_to_compare.append(s8)
+        except:
+            pass
+            
         #seats_to_compare.append(s1)
         
         #seats_to_compare.append(s4)
@@ -176,7 +191,8 @@ def student_fitness(seat_location,srn,chromosome):
 
     #print("FITNESS >>>> ",list_of_fitness_values)
     #print(list_of_fitness_values)
-    return max(list_of_fitness_values)
+    #return max(list_of_fitness_values)
+    return min(list_of_fitness_values)
     
 
 
@@ -198,7 +214,8 @@ def get_fintness(chromosome):
     indivial_student_fitness = [student_fitness(chromosome[i],list_of_students[i],chromosome) for i in range(len(list_of_students))]
 
     #print(sum(indivial_student_fitness)/len(list_of_students))
-    return sum(indivial_student_fitness)/len(list_of_students)
+    return 1/(sum(indivial_student_fitness)/len(list_of_students))
+    #return max(indivial_student_fitness)
 
 # n chromosomes will give n new chromosomes
 def genetic_crossover(current_population,length_of_chromosome):
@@ -295,14 +312,14 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         #population.append(initial_chromosome)
 
     #now initial population is ready
-
+    #print(population)
     current_generation = 1
 
     while(current_generation<epochs):
 
         print("GENERATION : ",current_generation,"\n")
         fitness_population = [get_fintness(i) for i in population]
-        #print("fitness >> ",fitness_population)
+        print("fitness >> ",fitness_population)
         #a=input()
         #get indexes of top fit chromosomes
         top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
@@ -325,6 +342,6 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,12,200)
+a = genetic(15,allocated_seats,12,100)
 #b = genetic()
 print(a)
