@@ -53,13 +53,17 @@ def fitness_value(s1,s2):   ### THIS IS THE FUNCTION TO CALL  s1->[row,column,su
     subject_similarity_coefficient=subject_similarity(s1[2],s2[2])
     #print("subject_similarity_coefficient ",subject_similarity_coefficient)
 
-    subject_dissimilarity_coefficient = (1 - subject_similarity_coefficient) / 0.9 * 70/100
-    non_visibility_coefficient = (1 - visibility_coefficient)/1 * 15/100
-    distance_coefficient = (distance_coefficient/2.4) * 15/100
-    
-    fitness_s1_s2 = non_visibility_coefficient * distance_coefficient * subject_dissimilarity_coefficient
+    subject_dissimilarity_coefficient = (1 - subject_similarity_coefficient) 
+    #/ 0.9 * 70
+    non_visibility_coefficient = (1 - visibility_coefficient)
+    #/1 * 15
+    distance_coefficient = distance_coefficient
+    #/2.4) * 15
+    #fitness_s1_s2 = visibility_coefficient * (1/distance_coefficient) * subject_similarity_coefficient
+    fitness_s1_s2 = (non_visibility_coefficient + distance_coefficient) * subject_dissimilarity_coefficient
+    #15+15*70
     #print('fitness s1 s2 ',fitness_s1_s2)
-
+    #print("SEAT : ",s1,s2,fitness_s1_s2,"\n\n")
     return fitness_s1_s2
 """
 if __name__=="__main__":
