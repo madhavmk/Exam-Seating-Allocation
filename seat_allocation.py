@@ -44,7 +44,23 @@ subject_student = [a[1] for a in st]
 student_details = {}
 #read in csv and add it to dictonary
 #'1,1,:4,1','1,1,:4,2','1,1,:4,3','1,1,:5,1','1,1,:5,2','1,1,:5,3'
-allocated_seats = ['1,1,:1,1','1,1,:1,2','1,1,:1,3','1,1,:2,1','1,1,:2,2','1,1,:2,3','1,1,:3,1','1,1,:3,2','1,1,:3,3','1,1,:4,1','1,1,:4,2','1,1,:4,3','1,1,:5,1','1,1,:5,2','1,1,:5,3']
+
+
+room_details = input_module.read_room_details()
+allocated_seats=[]
+print('Room Details , ',room_details)
+
+for room in room_details:
+    room_str = str(room[0]) + str(',') + str(room[1])
+    for row in range(1,int(room[2])+1):
+        for column in range(1,int(room[3])+1):
+            allocated_seats.append(str(room_str + ",:" + str(row) + "," + str(column)))
+            #print(room_str + ",:" + str(row) + "," + str(column))
+print("Allocated Seats , ", allocated_seats)
+
+#allocated_seats = ['1,1,:1,1','1,1,:1,2','1,1,:1,3','1,1,:2,1','1,1,:2,2','1,1,:2,3','1,1,:3,1','1,1,:3,2','1,1,:3,3','1,1,:4,1','1,1,:4,2','1,1,:4,3','1,1,:5,1','1,1,:5,2','1,1,:5,3']
+
+
 #seats allocated
 #order is same as in list_of_students (corresponding index)
 
@@ -361,7 +377,7 @@ for i in range(len(a)):
         print(list_of_students[n],subject_student[n],">",a[i][n])
     print("\n\n")
 
-for i in range(len(a)):
+for i in range(len(a)): 
 
     print("Allocation wrt seats ",i," : \n")
 

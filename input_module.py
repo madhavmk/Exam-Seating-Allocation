@@ -66,4 +66,22 @@ def read_subject_details():
 
     return subject_subject_dictionary
 
+
+def read_room_details():
+    configuration_data=read_configuration_file()
+    array=[]
+    #print(configuration_data)
+    #print(configuration_data["file_location"]["student-details"])
+    with open(configuration_data["file_location"]["room-details"]) as room_details_file:
+        room_details_file = csv.reader(room_details_file)
+        for row in room_details_file:
+            #print(row)
+            array.append(list([str(row[0]),str(row[1]),str(row[2]),str(row[3])]))
+    #print(array)
+    return array
+
+
 subject_subject_dictionary_constant=read_subject_details()
+
+
+
