@@ -25,6 +25,9 @@ import fitness_calculation
 import random
 import copy
 
+import pprint
+import numpy as np 
+
 st = input_module.read_student_details()
 
 """
@@ -337,6 +340,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
 
 
         fitness_population = [get_fintness(i) for i in population]
+        print('all fitness values >> ',fitness_population)
         print("max fitness >> ",fitness_population[0])
         #a=input()
         #get indexes of top fit chromosomes
@@ -363,7 +367,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,40,200)
+a = genetic(15,allocated_seats,40,20)
 #b = genetic()
 print(a)
 
@@ -379,8 +383,23 @@ for i in range(len(a)):
 
 for i in range(len(a)): 
 
-    print("Allocation wrt seats ",i," : \n")
+    print("Allocation wrt seats ",i," fitness ",get_fintness(a[i])," : \n")
+    array=[]
+    for s in allocated_seats:
+        try:
+            srn = get_student_srn(s,a[i])
+            sub = subject_student[list_of_students.index(srn)]
+            array.append('{0: <5}'.format(sub))
+        except:
+            array.append('{0: <5}'.format("--"))
+    print(array) 
+    array=np.array(array)
+    #array=array.resize(int(room_details[0][2]),int(room_details[0][3]))
+    array.resize(5,4)
+    print(array)
+    #pprint.pprint(array)
 
+    """
     for s in allocated_seats:
 
         try:
@@ -390,4 +409,4 @@ for i in range(len(a)):
             print(s," : ",srn," ",sub)
         except:
             pass
-    
+    """
