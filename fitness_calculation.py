@@ -1,5 +1,6 @@
 import numpy as np
 from numpy import arange
+import math
 
 from matplotlib import pyplot as mp
 import numpy as np
@@ -57,10 +58,10 @@ def fitness_value(s1,s2):   ### THIS IS THE FUNCTION TO CALL  s1->[row,column,su
     #/ 0.9 * 70
     non_visibility_coefficient = (1 - visibility_coefficient)
     #/1 * 15
-    distance_coefficient = distance_coefficient
+    distance_coefficient = math.pow(distance_coefficient,3)
     #/2.4) * 15
     #fitness_s1_s2 = visibility_coefficient * (1/distance_coefficient) * subject_similarity_coefficient
-    fitness_s1_s2 = ( non_visibility_coefficient + distance_coefficient ) * subject_dissimilarity_coefficient
+    fitness_s1_s2 = ( non_visibility_coefficient + distance_coefficient ) * math.pow(subject_dissimilarity_coefficient*10,2)
     #15+15*70
     #print('fitness s1 s2 ',fitness_s1_s2)
     #print("SEAT : ",s1,s2,fitness_s1_s2,"\n\n")

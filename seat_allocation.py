@@ -205,7 +205,7 @@ def student_fitness(seat_location,srn,chromosome):
     #print(list_of_fitness_values)
     #print(list_of_fitness_values,"\n","Value returned = ",min(list_of_fitness_values))
     return min(list_of_fitness_values)
-    #return (sum(list_of_fitness_values)/len(list_of_fitness_values))
+    return (sum(list_of_fitness_values)/len(list_of_fitness_values))
     
 
 
@@ -287,9 +287,7 @@ def genetic_crossover(current_population,length_of_chromosome):
 
     
     return list_of_offsprings
-
-def genetic_mutation(current_population,length_of_chromosome):
-
+def genetic_mutation_swap(current_population,length_of_chromosome):
     population = copy.deepcopy(current_population)
     #print(population)
 
@@ -309,6 +307,75 @@ def genetic_mutation(current_population,length_of_chromosome):
             population[i][swap_index_2] = temp
     
     return population
+def genetic_mutation_insertion(current_population,length_of_chromosome):
+    population = copy.deepcopy(current_population)
+    #print(population)
+
+    for i in range(len(population)):
+
+        # test and change the number of swaps
+        number_of_insertions = 1
+
+        for j in range(number_of_insertions):
+
+            index = random.randint(0,length_of_chromosome - 2)
+            follow_index = random.randint(0,length_of_chromosome-1)
+
+            print("\n\n POPULATION [i] IS ",population[i],follow_index,sep="//////")
+
+            follow_element = population[i][follow_index]
+            #shift other elements
+            if(follow_index>index):
+                for k in range(follow_index,index,-1):
+                    population[i][k] = population[i][k-1]
+                population[i][index + 1 ] = follow_element
+            '''
+            elif(follow_index<index):
+                for k in range(follow_index,index):
+                    population[i][k] = population[i][k-1]
+                population[i][index + 1 ] = follow_element
+            '''
+            
+
+    return population
+def genetic_mutation_scramble(current_population,length_of_chromosome):
+    population = copy.deepcopy(current_population)
+    #print(population)
+
+    for i in range(len(population)):
+
+        #should decide scramble length
+        scramble_length = 3
+        # max(3,length_of_chromosome//10)
+        scramble_index_list = []
+
+        for j in range(scramble_length):
+            scramble_index_list.append(random.randint(0,length_of_chromosome-1))    
+        
+        scramble_index_list = set(scramble_index_list)
+        scramble_index_list = list(scramble_index_list)
+
+        scramble_values = [population[i][k] for k in scramble_index_list]
+        
+        scramble_length = len(scramble_index_list)
+
+        
+        random.shuffle(scramble_values)
+
+        for a in range(scramble_length):
+            
+            change_value_index = scramble_index_list[a]
+            population [i][change_value_index] = scramble_values[a]
+
+    return population
+
+
+def genetic_mutation(current_population,length_of_chromosome):
+    a=copy.deepcopy(current_population)
+    
+    ret = genetic_mutation_swap(a,length_of_chromosome)
+
+    return ret
 
 def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
 
@@ -367,7 +434,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,40,20)
+a = genetic(15,allocated_seats,8,200)
 #b = genetic()
 print(a)
 
@@ -395,7 +462,7 @@ for i in range(len(a)):
     print(array) 
     array=np.array(array)
     #array=array.resize(int(room_details[0][2]),int(room_details[0][3]))
-    array.resize(5,4)
+    array.resize(int(room_details[0][2]),int(room_details[0][3]))
     print(array)
     #pprint.pprint(array)
 
