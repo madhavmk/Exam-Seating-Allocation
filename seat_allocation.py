@@ -39,7 +39,7 @@ for each srn:
 
 
 #how many students to consider around a given student to calculate the fitness
-student_boundary_range = 1
+student_boundary_range = 2
 
 #list of srn's 
 list_of_students = [a[0] for a in st]
@@ -373,7 +373,7 @@ def genetic_mutation_scramble(current_population,length_of_chromosome):
 def genetic_mutation(current_population,length_of_chromosome):
     a=copy.deepcopy(current_population)
     
-    ret = genetic_mutation_swap(a,length_of_chromosome)
+    ret = genetic_mutation_scramble(a,length_of_chromosome)
 
     return ret
 
@@ -434,7 +434,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,8,200)
+a = genetic(15,allocated_seats,40,400)
 #b = genetic()
 print(a)
 
