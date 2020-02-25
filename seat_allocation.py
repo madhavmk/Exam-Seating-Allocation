@@ -284,9 +284,9 @@ def genetic_crossover(current_population,length_of_chromosome):
         list_of_offsprings.append(offspring_1)
         list_of_offsprings.append(offspring_2)
         #print(len(offspring_1),len(offspring_2),"...\n\n");
-
-    
+  
     return list_of_offsprings
+
 def genetic_mutation_swap(current_population,length_of_chromosome):
     population = copy.deepcopy(current_population)
     #print(population)
@@ -417,7 +417,10 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
 
         new_chromosomes = genetic_crossover(selected_chromosomes,length_of_chromosome)
         #print("new ",new_chromosomes)
+        #new_chromosomes = genetic_mutation(new_chromosomes,length_of_chromosome)
         new_chromosomes = genetic_mutation(new_chromosomes,length_of_chromosome)
+
+
 
         population = selected_chromosomes
         for i in new_chromosomes:
@@ -434,7 +437,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,40,400)
+a = genetic(15,allocated_seats,40,300)
 #b = genetic()
 print(a)
 
@@ -456,9 +459,9 @@ for i in range(len(a)):
         try:
             srn = get_student_srn(s,a[i])
             sub = subject_student[list_of_students.index(srn)]
-            array.append('{0: <5}'.format(sub))
+            array.append('{0: <4}'.format(sub))
         except:
-            array.append('{0: <5}'.format("--"))
+            array.append('{0: <4}'.format("--"))
     print(array) 
     array=np.array(array)
     #array=array.resize(int(room_details[0][2]),int(room_details[0][3]))
