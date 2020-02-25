@@ -58,8 +58,8 @@ def fitness_value(s1,s2):   ### THIS IS THE FUNCTION TO CALL  s1->[row,column,su
     non_visibility_coefficient = (1 - visibility_coefficient)
 
     non_visibility_coefficient = 1 * math.pow(non_visibility_coefficient,1)
-    distance_coefficient = 1 * math.pow(distance_coefficient,1)   # distance coefficient ranges from 1 to 2.82
-    subject_dissimilarity_coefficient = 1 * math.pow(subject_dissimilarity_coefficient,1)
+    distance_coefficient = 1 * math.pow(distance_coefficient,3)   # distance coefficient ranges from 1 to 2.82
+    subject_dissimilarity_coefficient = 100 * math.pow(subject_dissimilarity_coefficient,2)
     #fitness_s1_s2 = visibility_coefficient * (1/distance_coefficient) * subject_similarity_coefficient
     
     #print('\t\t\t',' nvc ',non_visibility_coefficient,' dc ',distance_coefficient,' sdc ',subject_dissimilarity_coefficient)
