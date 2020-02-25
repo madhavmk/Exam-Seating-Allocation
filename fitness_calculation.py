@@ -55,17 +55,21 @@ def fitness_value(s1,s2):   ### THIS IS THE FUNCTION TO CALL  s1->[row,column,su
     #print("subject_similarity_coefficient ",subject_similarity_coefficient)
 
     subject_dissimilarity_coefficient = (1 - subject_similarity_coefficient) 
-    #/ 0.9 * 70
     non_visibility_coefficient = (1 - visibility_coefficient)
-    #/1 * 15
-    distance_coefficient = math.pow(distance_coefficient,3)
-    #/2.4) * 15
+
+    non_visibility_coefficient = 1 * math.pow(non_visibility_coefficient,1)
+    distance_coefficient = 1 * math.pow(distance_coefficient,1)   # distance coefficient ranges from 1 to 2.82
+    subject_dissimilarity_coefficient = 1 * math.pow(subject_dissimilarity_coefficient,1)
     #fitness_s1_s2 = visibility_coefficient * (1/distance_coefficient) * subject_similarity_coefficient
-    fitness_s1_s2 = ( non_visibility_coefficient + distance_coefficient ) * math.pow(subject_dissimilarity_coefficient*10,2)
-    #15+15*70
-    #print('fitness s1 s2 ',fitness_s1_s2)
-    #print("SEAT : ",s1,s2,fitness_s1_s2,"\n\n")
+    
+    #print('\t\t\t',' nvc ',non_visibility_coefficient,' dc ',distance_coefficient,' sdc ',subject_dissimilarity_coefficient)
+    fitness_s1_s2 = ( non_visibility_coefficient + distance_coefficient ) * subject_dissimilarity_coefficient
+    #print('\t\t\t',' fitness ',fitness_s1_s2)
+   
     return fitness_s1_s2
+
+
+
 """
 if __name__=="__main__":
 

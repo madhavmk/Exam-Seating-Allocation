@@ -453,7 +453,7 @@ for i in range(len(a)):
 
 for i in range(len(a)): 
 
-    print("Allocation wrt seats ",i," fitness ",get_fintness(a[i])," : \n")
+    print("Allocation wrt seats ",i," fitness ",get_fintness(a[i]))
     array=[]
     for s in allocated_seats:
         try:
@@ -467,6 +467,7 @@ for i in range(len(a)):
     #array=array.resize(int(room_details[0][2]),int(room_details[0][3]))
     array.resize(int(room_details[0][2]),int(room_details[0][3]))
     print(array)
+    print("\n")
     #pprint.pprint(array)
 
     """
