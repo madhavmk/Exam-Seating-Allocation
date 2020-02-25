@@ -21,6 +21,7 @@ chromosome : list of seat locations
 
 import input_module
 import fitness_calculation
+import math
 
 import random
 import copy
@@ -205,7 +206,7 @@ def student_fitness(seat_location,srn,chromosome):
     #print(list_of_fitness_values)
     #print(list_of_fitness_values,"\n","Value returned = ",min(list_of_fitness_values))
     return min(list_of_fitness_values)
-    return (sum(list_of_fitness_values)/len(list_of_fitness_values))
+    #return (sum(list_of_fitness_values)/len(list_of_fitness_values))
     
 
 
@@ -245,8 +246,8 @@ def genetic_crossover(current_population,length_of_chromosome):
     #randomly select two parents and produce an offspring
 
     #print(population)
-    while(len(population) != 0):
-
+    while(len(population) > 1):
+        print(len(population))
         a = random.randint(0,len(population)-1)
         parent_1 = copy.deepcopy(population[a])
         population.pop(a)
@@ -284,7 +285,7 @@ def genetic_crossover(current_population,length_of_chromosome):
         list_of_offsprings.append(offspring_1)
         list_of_offsprings.append(offspring_2)
         #print(len(offspring_1),len(offspring_2),"...\n\n");
-  
+
     return list_of_offsprings
 
 def genetic_mutation_swap(current_population,length_of_chromosome):
@@ -396,6 +397,8 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     #now initial population is ready
 
     current_generation = 1
+    threshold = 0.5
+    decay = 0.0005
 
     while(current_generation<epochs):
 
@@ -411,7 +414,13 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         print("max fitness >> ",fitness_population[0])
         #a=input()
         #get indexes of top fit chromosomes
-        top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
+        #setting up exponential decay
+        threshold = threshold*math.exp(-current_generation*decay)
+        threshold = threshold if threshold > 0.05 else 0.05
+        point = int(threshold*100)
+        print('point: ',point)
+        top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-point:]
+        #top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
         
         selected_chromosomes = [population[i] for i in top_fitness_indexes]
 
@@ -430,14 +439,13 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         print("\n\n\n")
 
         current_generation+=1
-    
     top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
         
     #final_allocation = [population[top_fitness_indexes[0]]]
     return population
 
 
-a = genetic(15,allocated_seats,40,300)
+a = genetic(15,allocated_seats,40,200)
 #b = genetic()
 print(a)
 
