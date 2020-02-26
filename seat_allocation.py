@@ -229,9 +229,9 @@ def get_fintness(chromosome):
 
     #print(sum(indivial_student_fitness)/len(list_of_students))
     #print("OVERALL > ",indivial_student_fitness,"\n","returned : ",min(indivial_student_fitness))
-    return min(indivial_student_fitness)
+    #return min(indivial_student_fitness)
     #return max(indivial_student_fitness)/sum(indivial_student_fitness)
-    #return sum(indivial_student_fitness)/len(list_of_students)
+    return sum(indivial_student_fitness)/len(list_of_students)
 
 # n chromosomes will give n new chromosomes
 def genetic_crossover(current_population,length_of_chromosome):
