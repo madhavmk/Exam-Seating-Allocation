@@ -374,7 +374,7 @@ def genetic_mutation_scramble(current_population,length_of_chromosome):
 def genetic_mutation(current_population,length_of_chromosome):
     a=copy.deepcopy(current_population)
     
-    ret = genetic_mutation_scramble(a,length_of_chromosome)
+    ret = genetic_mutation_swap(a,length_of_chromosome)
 
     return ret
 
@@ -398,7 +398,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
 
     current_generation = 1
     threshold = 0.5
-    decay = 0.0005
+    decay = 0.0002
 
     while(current_generation<epochs):
 
