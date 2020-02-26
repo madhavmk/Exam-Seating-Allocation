@@ -374,7 +374,7 @@ def genetic_mutation_scramble(current_population,length_of_chromosome):
 def genetic_mutation(current_population,length_of_chromosome):
     a=copy.deepcopy(current_population)
     
-    ret = genetic_mutation_swap(a,length_of_chromosome)
+    ret = genetic_mutation_insertion(a,length_of_chromosome)
 
     return ret
 
