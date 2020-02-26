@@ -411,7 +411,8 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
 
         fitness_population = [get_fintness(i) for i in population]
         print('all fitness values >> ',fitness_population)
-        print("max fitness >> ",fitness_population[0])
+        print("max fitness >> ",max(fitness_population))
+        #print("max fitness >> ",fitness_population[0])
         #a=input()
         #get indexes of top fit chromosomes
         #setting up exponential decay
@@ -445,7 +446,7 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     return population
 
 
-a = genetic(15,allocated_seats,40,200)
+a = genetic(15,allocated_seats,40,500)
 #b = genetic()
 print(a)
 
