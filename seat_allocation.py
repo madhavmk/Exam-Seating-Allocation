@@ -262,18 +262,8 @@ def genetic_crossover(current_population,length_of_chromosome):
 
         crossover_point = random.randint(1,length_of_chromosome-2)
         offspring_1 = parent_1[0:crossover_point]
-        #print("offpring 1 ",offspring_1)
         offspring_2 = parent_2[0:crossover_point]
-        
-        '''
-        #offspring_1.extend(parent_2[crossover_point:length_of_chromosome])
-        #offspring_2.extend(parent_1[crossover_point:length_of_chromosome])
-        '''
-
-        #print(len(parent_1),len(parent_2)," >>>> ",length_of_chromosome)
-        
-
-        
+                
         for seat in parent_2:
             if not(seat in offspring_1):
                 offspring_1.append(seat)
@@ -284,8 +274,65 @@ def genetic_crossover(current_population,length_of_chromosome):
         
         list_of_offsprings.append(offspring_1)
         list_of_offsprings.append(offspring_2)
-        #print(len(offspring_1),len(offspring_2),"...\n\n");
 
+        #"""Trying to add the reverse image as well
+        offspring_1 = []
+        offspring_2 = []
+
+        crossover_point = random.randint(1,length_of_chromosome-2)
+        offspring_1 = parent_1[0:crossover_point]
+        offspring_2 = parent_2[0:crossover_point]
+                
+        for seat in parent_2:
+            if not(seat in offspring_1):
+                offspring_1.append(seat)
+        
+        for seat in parent_1:
+            if not(seat in offspring_2):
+                offspring_2.append(seat)
+        
+        list_of_offsprings.append(offspring_1)
+        list_of_offsprings.append(offspring_2)
+
+        offspring_1 = []
+        offspring_2 = []
+
+        crossover_point = random.randint(1,length_of_chromosome-2)
+        offspring_1 = parent_1[0:crossover_point]
+        offspring_2 = parent_2[0:crossover_point]
+                
+        for seat in parent_2:
+            if not(seat in offspring_1):
+                offspring_1.append(seat)
+        
+        for seat in parent_1:
+            if not(seat in offspring_2):
+                offspring_2.append(seat)
+        
+        list_of_offsprings.append(offspring_1)
+        list_of_offsprings.append(offspring_2)
+
+
+        offspring_1 = []
+        offspring_2 = []
+
+        crossover_point = random.randint(1,length_of_chromosome-2)
+        offspring_1 = parent_1[0:crossover_point]
+        offspring_2 = parent_2[0:crossover_point]
+                
+        for seat in parent_2:
+            if not(seat in offspring_1):
+                offspring_1.append(seat)
+        
+        for seat in parent_1:
+            if not(seat in offspring_2):
+                offspring_2.append(seat)
+        
+        list_of_offsprings.append(offspring_1)
+        list_of_offsprings.append(offspring_2)
+        #"""
+
+        
     return list_of_offsprings
 
 def genetic_mutation_swap(current_population,length_of_chromosome):
@@ -295,7 +342,10 @@ def genetic_mutation_swap(current_population,length_of_chromosome):
     for i in range(len(population)):
 
         # test and change the number of swaps
-        number_of_swaps = random.randint(0,length_of_chromosome//5)
+        #number_of_swaps = int(length_of_chromosome//2)
+        #number_of_swaps = random.randint(int(length_of_chromosome//10),int(length_of_chromosome//2))
+        number_of_swaps = random.randint(int(1),int(length_of_chromosome//2))
+
 
         for j in range(number_of_swaps):
 
@@ -308,6 +358,7 @@ def genetic_mutation_swap(current_population,length_of_chromosome):
             population[i][swap_index_2] = temp
     
     return population
+
 def genetic_mutation_insertion(current_population,length_of_chromosome):
     population = copy.deepcopy(current_population)
     #print(population)
@@ -315,7 +366,7 @@ def genetic_mutation_insertion(current_population,length_of_chromosome):
     for i in range(len(population)):
 
         # test and change the number of swaps
-        number_of_insertions = 1
+        number_of_insertions = 5
 
         for j in range(number_of_insertions):
 
@@ -337,8 +388,8 @@ def genetic_mutation_insertion(current_population,length_of_chromosome):
                 population[i][index + 1 ] = follow_element
             '''
             
-
     return population
+
 def genetic_mutation_scramble(current_population,length_of_chromosome):
     population = copy.deepcopy(current_population)
     #print(population)
@@ -374,7 +425,7 @@ def genetic_mutation_scramble(current_population,length_of_chromosome):
 def genetic_mutation(current_population,length_of_chromosome):
     a=copy.deepcopy(current_population)
     
-    ret = genetic_mutation_insertion(a,length_of_chromosome)
+    ret = genetic_mutation_swap(a,length_of_chromosome)
 
     return ret
 
@@ -397,17 +448,21 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
     #now initial population is ready
 
     current_generation = 1
+    
+    #""" To add exponential decay
     threshold = 0.5
-    decay = 0.0002
+    decay = 0.00005
+    #"""
 
     while(current_generation<epochs):
 
         print("\n\n\nGENERATION : ",current_generation)
         
+        """
         for n in range(len(list_of_students)):
 
             print(list_of_students[n],subject_student[n],">",population[0][n])
-
+        """
 
         fitness_population = [get_fintness(i) for i in population]
         print('all fitness values >> ',fitness_population)
@@ -415,13 +470,18 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         #print("max fitness >> ",fitness_population[0])
         #a=input()
         #get indexes of top fit chromosomes
-        #setting up exponential decay
+
+        
+        """setting up exponential decay
         threshold = threshold*math.exp(-current_generation*decay)
         threshold = threshold if threshold > 0.05 else 0.05
         point = int(threshold*100)
         print('point: ',point)
+
         top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-point:]
-        #top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
+        """
+        
+        top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//4):] 
         
         selected_chromosomes = [population[i] for i in top_fitness_indexes]
 
@@ -440,13 +500,14 @@ def genetic(length_of_chromosome,initial_chromosome,population_size,epochs):
         print("\n\n\n")
 
         current_generation+=1
+
     top_fitness_indexes = sorted(range(len(fitness_population)), key = lambda sub: fitness_population[sub])[-(population_size//2):] 
         
     #final_allocation = [population[top_fitness_indexes[0]]]
     return population
 
 
-a = genetic(15,allocated_seats,40,500)
+a = genetic(36,allocated_seats,300,1000)
 #b = genetic()
 print(a)
 
