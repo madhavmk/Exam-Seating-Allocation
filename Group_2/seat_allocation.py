@@ -151,7 +151,9 @@ def student_fitness(seat_location, srn, chromosome):
     # print(chromosome)
 
     if(len(seats_to_compare) == 0):
-        list_of_fitness_values.append(1.944)
+        print("LOLOLOLOL")
+        list_of_fitness_values.append(118000)  # Max possible value of fitness
+        #list_of_fitness_values.append(1.944)  # Wemight have to reconsider this value
     else:
         for i in seats_to_compare:
 
@@ -166,8 +168,7 @@ def student_fitness(seat_location, srn, chromosome):
             #student_fitness_value = get_fitness([row,column,subject],[row,column,subject])
             #student_fitness_value = get_distance(seat_row,seat_col,s_row,s_col)
 
-            s1 = [seat_row, seat_col,
-                  subject_student[list_of_students.index(srn)]]
+            s1 = [seat_row, seat_col,subject_student[list_of_students.index(srn)]]
             s2 = [s_row, s_col, subject_student[list_of_students.index(srns)]]
             student_fitness_value = fitness_calculation.fitness_value(s1, s2)
             #student_fitness_value = 1 / student_fitness_value
@@ -495,8 +496,8 @@ def genetic(length_of_chromosome, initial_chromosome, population_size, epochs):
 
 if __name__ == "__main__":
     
-    a = genetic(len(list_of_students), allocated_seats, 300, 2500)
-    #b = genetic()
+    a = genetic(len(list_of_students), allocated_seats, 300, 6000)
+
     print(a)
 
     print("\n\nFINAL ALLOCATION \n\n")
@@ -515,14 +516,17 @@ if __name__ == "__main__":
         array = []
         rooms = []
         start = 0
+        
         for r in room_details:
             row,col = int(r[2]),int(r[3])
             total_seats = row*col
             rooms.append(allocated_seats[start:start + total_seats])
             start += total_seats
         print("Rooms: ",rooms)
+
         for room in rooms:
             sub_array = []
+
             for s in room:
                 try:
                     srn = get_student_srn(s, a[i])
@@ -530,28 +534,12 @@ if __name__ == "__main__":
                     sub_array.append('{0: <4}'.format(sub))
                 except:
                     sub_array.append('{0: <4}'.format("--"))
-            #print(allocated_seats)
+
             print(sub_array)
             sub_array = np.array(sub_array)
-            # array=array.resize(int(room_details[0][2]),int(room_details[0][3]))
             sub_array.resize(int(room_details[0][2]), int(room_details[0][3]))
-            #print(sub_array)
-            #print("\n")
-            # pprint.pprint(array)
             array.append(sub_array)
         
         for j in array:
             print(j)
             print("\n")
-
-        """
-        for s in allocated_seats:
-
-            try:
-                srn = get_student_srn(s,a[i])
-                sub = subject_student[list_of_students.index(srn)]
-
-                print(s," : ",srn," ",sub)
-            except:
-                pass
-        """
