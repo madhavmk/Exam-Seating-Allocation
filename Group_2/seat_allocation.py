@@ -20,6 +20,7 @@ import copy
 import pprint
 import numpy as np
 import helper
+import pandas as pd
 
 
 
@@ -509,6 +510,14 @@ if __name__ == "__main__":
 
             print(list_of_students[n], subject_student[n], ">", a[i][n])
         print("\n\n")
+    
+
+    fitness_value_list=[ get_fintness(a[i]) for i in range(len(a)) ]
+    max_fitness_value=max( fitness_value_list )
+    max_fitness_value_index = fitness_value_list.index(max_fitness_value)
+    max_fitness_allocation=None
+    print("MAX Fitness value is : ", max_fitness_value )
+    
 
     for i in range(len(a)):
 
@@ -540,6 +549,18 @@ if __name__ == "__main__":
             sub_array.resize(int(room_details[0][2]), int(room_details[0][3]))
             array.append(sub_array)
         
+        if(i==max_fitness_value_index):
+
+            max_fitness_allocation=array
+            for j in range(len(max_fitness_allocation)):
+                pd.DataFrame(max_fitness_allocation[j]).to_csv("Room_"+str(j)+".csv",header=None, index=None)
+
         for j in array:
+            
             print(j)
             print("\n")
+
+    print("MAX FITNESS ALLOCATION  "," INDEX ",max_fitness_value_index," VALUE ", max_fitness_value)
+    for j in max_fitness_allocation:
+        print(j)
+        print("\n")
