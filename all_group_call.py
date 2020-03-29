@@ -20,7 +20,7 @@ print('Groups are : ',group_list)
 processes=[]
 
 for group in group_list:
-    command = "cd " + group + " && " + "python seat_allocation.py > out.txt"
+    command = "cd " + group + " && " + "python3 seat_allocation.py > out.txt"
     process = subprocess.Popen(command, shell=True)
     processes.append(process)
 
