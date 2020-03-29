@@ -10,9 +10,6 @@ import input_module
 from input_module import subject_subject_dictionary_constant
 
 
-
-
-
 def gaussian(x, mu, sig):
     return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
 
