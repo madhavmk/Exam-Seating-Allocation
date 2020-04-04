@@ -15,6 +15,11 @@ try:
 except:
     pass
 
+try:
+    group_list.remove('./ex_group')
+except:
+    pass
+
 print('Groups are : ',group_list)
 
 processes=[]
