@@ -64,8 +64,8 @@ def create_groups(groups,rdf,sdf):
 """
 Returns an array with probablities of being selected w.r.t a specified subject
 """
-def get_sub_prob(exc_subs,sdf,sub_arr,pre_arr):
-    simis = np.array(sdf[exc_subs[-1]])
+def get_sub_prob(exc_subs,subject,sdf,sub_arr,pre_arr):
+    simis = np.array(sdf[subject])
     sub_prob = list(map(lambda x: 1/x,simis))
     for i in exc_subs:
         ind = sub_arr.index(i)
@@ -87,12 +87,18 @@ def create_student_groups(sub_arr,sdf,st_dict,groups):
     #dest = './tempp'
     exc_subs = []
     prev_subs = []
+    total_students = 0
     for i,group in enumerate(groups,1):
-        print("New group","--"*50)
-        if(len(exc_subs) == len(sub_arr)):
+        print("Group No ",i,"--"*50)
+        exc_len = len(exc_subs)
+        slen = len(sub_arr)
+        if(exc_len == slen):
             break
+        elif (slen - exc_len) <= MAX_SUBJECTS_ROOM:
+            total_students = group[0]//(slen - exc_len)
+        else:
+            total_students = group[0]//MAX_SUBJECTS_ROOM
         start_sub = ""
-        total_students = group[0]//MAX_SUBJECTS_ROOM
         print("Total count: ",total_students)
         st_count = 0
         prev_subs = [ele for ele in prev_subs if ele not in exc_subs]
@@ -132,7 +138,11 @@ def create_student_groups(sub_arr,sdf,st_dict,groups):
             if exit:
                 exit = 0
                 break
-            local_exc_subs.append(start_sub)            
+            """
+            """
+            local_exc_subs.append(start_sub)
+            if slen == len(local_exc_subs):
+                local_exc_subs = list.copy(exc_subs)          
             arr = []
             if(len(prev_subs) > 1):
                 arr = prev_subs
@@ -140,7 +150,7 @@ def create_student_groups(sub_arr,sdf,st_dict,groups):
                 arr = sub_arr
             print("Subjects Array: ",sub_arr)
             print("Preferred subjects: ",arr)
-            sub_prob = get_sub_prob(local_exc_subs,sdf,sub_arr,arr)
+            sub_prob = get_sub_prob(local_exc_subs,start_sub,sdf,sub_arr,arr)
             print("Subject probablities: ",sub_prob)
             start_sub = choice(sub_arr,1,p=sub_prob)[0]
             print("Next subject: ",start_sub)
@@ -166,3 +176,9 @@ if __name__ == "__main__":
     
     # create the student csv files
     create_student_groups(subject_arr,subject_df,student_dict,groups)
+
+    # call all_group_call.py
+    command = "python3 all_group_call.py"
+    process = subprocess.Popen(command, shell=True)
+    process.wait()
+

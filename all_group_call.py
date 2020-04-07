@@ -1,6 +1,8 @@
 import os
 import copy
 import subprocess
+import pandas as pd
+import shutil
 
 subfolders_list = [ f.path for f in os.scandir("./") if f.is_dir() ]
 
@@ -20,6 +22,12 @@ try:
 except:
     pass
 
+try:
+    group_list.remove('./Rooms')
+except:
+    pass
+
+
 print('Groups are : ',group_list)
 
 processes=[]
@@ -31,14 +39,25 @@ for group in group_list:
 
 output = [p.wait() for p in processes]
 
-"""
-print('Started group 1')
-#os.system('cmd /c "cd Group_1  && python seat_allocation.py > out.txt"')
-p1 = subprocess.Popen( "cd Group_1  && python seat_allocation.py > out.txt")
-print('Started group 2')
-#os.system('cmd /c "cd Group_2  && python seat_allocation.py > out.txt"')
-p2 = subprocess.Popen( "cd Group_2  && python seat_allocation.py > out.txt")
-print('Started group 3')
-#os.system('cmd /c "cd Group_3  && python seat_allocation.py > out.txt"')
-p3 = subprocess.Popen( "cd Group_3  && python seat_allocation.py > out.txt")
-"""
+try:
+    os.mkdir('Rooms')
+except FileExistsError:
+    print("File exists")
+except:
+    print('Error occurred')
+    exit()
+
+room_df = pd.read_csv('room-details.csv',header=None)
+ind = 0 
+for group in group_list:
+    rooms = [name for name in os.listdir(group) if name.startswith('Room')]
+    src = group + '/'
+    dest = './Rooms' 
+    for i in rooms:
+        row = list(room_df.iloc[ind])
+        room_no = str(row[0]) + str(row[1])
+        shutil.copyfile(src + i,dest + '/Room_' + room_no)
+        ind += 1
+
+
+
