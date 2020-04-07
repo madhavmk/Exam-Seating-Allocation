@@ -1,3 +1,4 @@
+import sys
 import os
 import subprocess
 import pandas as pd
@@ -161,10 +162,14 @@ def create_student_groups(sub_arr,sdf,st_dict,groups):
 
 
 if __name__ == "__main__":
+
     # get all csv files
-    student_df = pd.read_csv('student-details.csv')
-    room_df = pd.read_csv('room-details.csv',header=None)
-    subject_df = pd.read_csv('subject-details.csv')
+    #student_df = pd.read_csv('student-details.csv')
+    student_df = pd.read_csv(sys.argv[1])
+    #room_df = pd.read_csv('room-details.csv',header=None)
+    room_df = pd.read_csv(sys.argv[2])
+    #subject_df = pd.read_csv('subject-details.csv')
+    subject_df = pd.read_csv(sys.argv[3])
 
     # Get corresponding dependencies
     student_dict,subject_arr = get_student_dict(student_df,subject_df)
@@ -178,7 +183,7 @@ if __name__ == "__main__":
     create_student_groups(subject_arr,subject_df,student_dict,groups)
 
     # call all_group_call.py
-    command = "python3 all_group_call.py"
+    command = "python3 all_group_call.py " + sys.argv[2]
     process = subprocess.Popen(command, shell=True)
     process.wait()
 

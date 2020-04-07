@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>Exam Seat Allotment | Home</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#myPage">ESA</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#about">About</a></li>
+					<li><a href="#greensimtool">ESA Tool</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="jumbotron text-center">
+		<h1>Exam Seat Allotment</h1>
+		<p>Specialized Gentetic Algorithm used to best allot seats for students during exam</p>
+	</div>
+
+	<!-- Container (About Section) -->
+	<div id="about" class="container-fluid">
+		<div class="row">
+			<div class="col-sm-8">
+				<h2>About ESA</h2><br>
+				<h4>Examinations are a fair and reliable form of standardized testing in our increasingly competitive
+					world.
+					Inevitably, some examinees attempt to illegally gain an unfair advantage over other candidates by
+					indulging in cheating
+					and malpractice.
+					Even a single case of examination malpractice can destroy an Examination body’s credibility and even
+					lead to costly and
+					time-consuming criminal proceedings. </h4><br>
+				<p>Our application attempts to strategically allot examinees in specific seats and rooms,
+					such as to mitigate the overall probability of malpractice.
+					It involves examining multiple crucial factors such as subject similarity, distancing between
+					examinees,
+					and human field of vision to find the most optimal seating arrangement.
+					We have exploited the property of Evolutionary Genetic Algorithms to converge to the globally
+					optimal solution in an
+					efficient time for this otherwise NP hard problem.</p>
+
+				<br><button class="btn btn-default btn-lg">Get in Touch</button>
+			</div>
+			<div class="col-sm-4" style="text-align:center">
+				<span class="glyphicon glyphicon-globe logo slideanim" style="color: green;"></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Container (GreenSim Tool Section) -->
+	<div id="greensimtool" class="container-fluid text-center">
+		<h2>ESA Tool</h2>
+		<div class="row text-center slideanim">
+			<div class="col-sm-4">
+
+			</div>
+			<div class="col-sm-4">
+				<!--<form action="ccbd-app.php#greensimtool" method="POST" enctype="multipart/form-data"
+					style="text-align:left;padding:15px;">-->
+
+				<div class="form-group">
+					<label for="file1">File1 : Student Details (.csv)</label>
+					<input type="file" class="form-control" name="file1" id="file1">
+				</div>
+				<hr />
+				<div class="form-group">
+					<label for="file2">File 2 : Room Details (.csv)</label>
+					<input type="file" class="form-control" name="file2" id="file2">
+				</div>
+				<hr />
+				<div class="form-group">
+					<label for="file2">File 3 : Subject Similarity Details (.csv)</label>
+					<input type="file" class="form-control" name="file3" id="file3">
+				</div>
+				<hr />
+				<input type="button" id="submit-btn" value="submit" onclick="obj.getDetails()">
+
+				<!--</form>-->
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- Container (Contact Section) -->
+	<div id="contact" class="container-fluid text-center bg-grey">
+		<h2 class="text-center">Contact</h2>
+		<div class="row">
+			<div class="col-sm-12">
+				<p>Contact us and we'll get back to you within 24 hours.</p>
+				<p><span class="glyphicon glyphicon-map-marker"></span> Bangalore, India</p>
+				<p><span class="glyphicon glyphicon-phone"></span> +91-7019294726</p>
+				<p><span class="glyphicon glyphicon-envelope"></span> bluefist492@gmail.com</p>
+			</div>
+		</div>
+	</div>
+
+	<footer class="container-fluid text-center page-footer font-small">
+		<a href="#myPage" title="To Top">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</a>
+		<br />
+		<div class="footer-copyright text-center py-3">© 2020 Copyright:
+			<a href="#"><strong>ESA</strong></a>
+		</div>
+	</footer>
+
+	<script>
+		$(document).ready(function () {
+			// Add smooth scrolling to all links in navbar + footer link
+			$(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+				// Make sure this.hash has a value before overriding default behavior
+				if (this.hash !== "") {
+					// Prevent default anchor click behavior
+					event.preventDefault();
+
+					// Store hash
+					var hash = this.hash;
+
+					// Using jQuery's animate() method to add smooth page scroll
+					// The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+					$('html, body').animate({
+						scrollTop: $(hash).offset().top
+					}, 900, function () {
+
+						// Add hash (#) to URL when done scrolling (default click behavior)
+						window.location.hash = hash;
+					});
+				} // End if
+			});
+
+			$(window).scroll(function () {
+				$(".slideanim").each(function () {
+					var pos = $(this).offset().top;
+
+					var winTop = $(window).scrollTop();
+					if (pos < winTop + 600) {
+						$(this).addClass("slide");
+					}
+				});
+			});
+		});
+
+		obj = {
+			xhr: new XMLHttpRequest(),
+			getDetails: function () {
+				console.log("Getting details");
+				file1 = $("#file1").prop('files')[0];
+				file2 = $("#file2").prop('files')[0];
+				file3 = $("#file3").prop('files')[0];
+				console.log(file1);
+				console.log(file2);
+				console.log(file3);
+
+				fd = new FormData();
+				fd.append("file1", file1);
+				fd.append("file2", file2);
+				fd.append("file3", file3);
+
+				this.xhr.onreadystatechange = this.putDetails;
+				this.xhr.open("POST", "server.php", true);
+				this.xhr.upload.onprogress = function (e) {
+					if (e.lengthComputable) {
+						var percentComplete = (e.loaded / e.total) * 100;
+						console.log(percentComplete + '% uploaded');
+					}
+				};
+				this.xhr.send(fd);
+			},
+			putDetails: function () {
+				if (this.readyState == 4 && this.status == 200) {
+					var data = this.response;
+					console.log(data);
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>
