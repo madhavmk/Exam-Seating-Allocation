@@ -31,7 +31,7 @@ def read_student_details():
 def read_subject_details():
     configuration_data=read_configuration_file()
     subject_subject_dictionary=dict()
-    temp_dictionary=dict()
+    #temp_dictionary=dict()
     subject_column=[]
     subject_row=[]
     csv_array=[]

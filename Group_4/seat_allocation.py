@@ -497,7 +497,7 @@ def genetic(length_of_chromosome, initial_chromosome, population_size, epochs):
 
 if __name__ == "__main__":
     
-    a = genetic(len(list_of_students), allocated_seats, 300, 15000)
+    a = genetic(len(list_of_students), allocated_seats, 400, 15000)
 
     print(a)
 
