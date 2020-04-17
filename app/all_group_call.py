@@ -34,7 +34,7 @@ print('Groups are : ',group_list)
 processes=[]
 
 for group in group_list:
-    command = "cd " + group + " && " + "python3 seat_allocation.py > out.txt"
+    command = "cd " + group + " && " + "python seat_allocation.py > out.txt"
     process = subprocess.Popen(command, shell=True)
     processes.append(process)
 
@@ -49,7 +49,7 @@ except:
     exit()
 
 #room_df = pd.read_csv('room-details.csv',header=None)
-room_df = pd.read_csv(sys.argv[1])
+room_df = pd.read_csv(sys.argv[1],header=None)
 ind = 0 
 for group in group_list:
     rooms = [name for name in os.listdir(group) if name.startswith('Room')]

@@ -7,7 +7,7 @@ import shutil
 import errno
 from numpy.random import choice
 
-MAX_STUDENTS_GROUP = 80
+MAX_STUDENTS_GROUP = 8
 MAX_SUBJECTS_ROOM = 4
 
 """
@@ -59,7 +59,7 @@ def create_groups(groups,rdf,sdf):
         dest = './Group_' + str(i)
         shutil.copytree(src, dest)
         pd.DataFrame(temp_rdf).to_csv(dest + "/room-details.csv",header=None, index=None) 
-        pd.DataFrame(sdf).to_csv(dest + "/subject-details.csv",header=None, index=None)
+        pd.DataFrame(sdf).to_csv(dest + "/subject-details.csv",index=None)
         rind += rooms[1]
 
 """
@@ -167,7 +167,7 @@ if __name__ == "__main__":
     #student_df = pd.read_csv('student-details.csv')
     student_df = pd.read_csv(sys.argv[1])
     #room_df = pd.read_csv('room-details.csv',header=None)
-    room_df = pd.read_csv(sys.argv[2])
+    room_df = pd.read_csv(sys.argv[2],header=None)
     #subject_df = pd.read_csv('subject-details.csv')
     subject_df = pd.read_csv(sys.argv[3])
 
@@ -182,8 +182,11 @@ if __name__ == "__main__":
     # create the student csv files
     create_student_groups(subject_arr,subject_df,student_dict,groups)
 
+    print("Calling all groups")
     # call all_group_call.py
-    command = "python3 all_group_call.py " + sys.argv[2]
+    command = "python all_group_call.py " + sys.argv[2] + " >> out.txt"
     process = subprocess.Popen(command, shell=True)
     process.wait()
+
+    print("Program done")
 
