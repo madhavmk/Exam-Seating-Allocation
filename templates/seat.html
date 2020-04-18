@@ -7,16 +7,27 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="/static/css/style.css" rel="stylesheet" type="text/css">
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+	<div id="myModal" class="bg-transparent" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 2;">
+		<div class="bg-transparent">
+			<img src="static/img/Rolling-1s-210px.gif" alt="" style="height:150px;width:150px;">
+		</div>	
+	</div>
+	<div id="download" class="bg-transparent" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%,-50%);z-index: 2;">
+		<div class="bg-transparent">
+			<button class="btn"><i class="fa fa-download"></i><a id="down_id" download> Download</a></button>
+		</div>	
+	</div>
 
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -133,6 +144,8 @@
 
 	<script>
 		$(document).ready(function () {
+			document.getElementById("myModal").style.display="none";
+			document.getElementById("download").style.display="none";
 			// Add smooth scrolling to all links in navbar + footer link
 			$(".navbar a, footer a[href='#myPage']").on('click', function (event) {
 				// Make sure this.hash has a value before overriding default behavior
@@ -165,11 +178,16 @@
 					}
 				});
 			});
+
+			$("#download").on('click', function(){
+				document.getElementById("download").style.display = "none";
+			});
 		});
 
 		obj = {
 			xhr: new XMLHttpRequest(),
 			getDetails: function () {
+				document.getElementById("myModal").style.display="inline-block";
 				console.log("Getting details");
 				file1 = $("#file1").prop('files')[0];
 				file2 = $("#file2").prop('files')[0];
@@ -184,7 +202,7 @@
 				fd.append("file3", file3);
 
 				this.xhr.onreadystatechange = this.putDetails;
-				this.xhr.open("POST", "server.php", true);
+				this.xhr.open("POST", "http://localhost:9000/submit", true);
 				this.xhr.upload.onprogress = function (e) {
 					if (e.lengthComputable) {
 						var percentComplete = (e.loaded / e.total) * 100;
@@ -197,6 +215,9 @@
 				if (this.readyState == 4 && this.status == 200) {
 					var data = this.response;
 					console.log(data);
+					document.getElementById("myModal").style.display="none";
+					document.getElementById("down_id").href = "http://localhost:9000/file?filename=" + data;
+					document.getElementById("download").style.display="inline-block";
 				}
 			}
 		}

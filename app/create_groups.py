@@ -165,11 +165,15 @@ if __name__ == "__main__":
 
     # get all csv files
     #student_df = pd.read_csv('student-details.csv')
-    student_df = pd.read_csv(sys.argv[1])
+    student_df=[]; room_df=[]; subject_df=[]
+    with open(sys.argv[1],"r") as f:
+        student_df = pd.read_csv(f)
     #room_df = pd.read_csv('room-details.csv',header=None)
-    room_df = pd.read_csv(sys.argv[2],header=None)
+    with open(sys.argv[2],"r") as f:
+        room_df = pd.read_csv(f,header=None)
     #subject_df = pd.read_csv('subject-details.csv')
-    subject_df = pd.read_csv(sys.argv[3])
+    with open(sys.argv[3],"r") as f:
+        subject_df = pd.read_csv(f)
 
     # Get corresponding dependencies
     student_dict,subject_arr = get_student_dict(student_df,subject_df)
@@ -185,7 +189,7 @@ if __name__ == "__main__":
     print("Calling all groups")
     # call all_group_call.py
     command = "python all_group_call.py " + sys.argv[2] + " >> out.txt"
-    process = subprocess.Popen(command, shell=True)
+    process = subprocess.Popen(command)
     process.wait()
 
     print("Program done")
