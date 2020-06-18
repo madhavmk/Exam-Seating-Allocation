@@ -59,7 +59,7 @@ for group in group_list:
     for i in rooms:
         row = list(room_df.iloc[ind])
         room_no = str(row[0]) + str(row[1])
-        shutil.copyfile(src + i,dest + '/Room_' + room_no)
+        shutil.copyfile(src + i,dest + '/Room_' + room_no + '.csv')
         ind += 1
 
 

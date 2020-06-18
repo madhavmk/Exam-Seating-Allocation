@@ -7,7 +7,7 @@ import shutil
 import errno
 from numpy.random import choice
 
-MAX_STUDENTS_GROUP = 8
+MAX_STUDENTS_GROUP = 16
 MAX_SUBJECTS_ROOM = 4
 
 """
@@ -40,7 +40,7 @@ def get_all_groups(room_seats):
     rooms = 0
     for i in room_seats:
         seats += i
-        if seats < MAX_STUDENTS_GROUP: rooms += 1
+        if seats <= MAX_STUDENTS_GROUP: rooms += 1
         else:
             groups.append((seats-i,rooms))
             seats = i
@@ -177,7 +177,8 @@ if __name__ == "__main__":
 
     # Get corresponding dependencies
     student_dict,subject_arr = get_student_dict(student_df,subject_df)
-    room_seats = get_room_seats(room_df)    
+    room_seats = get_room_seats(room_df) 
+    print("Room_seats: ", room_seats)   
     groups = get_all_groups(room_seats)
 
     # create folders
