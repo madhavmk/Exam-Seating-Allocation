@@ -1,7 +1,7 @@
-Exam Seating Allocation Research using Natural Based Algorithms. 
+Exam Seating Allocation Research using Evolutionary genetic Algorithms. 
 Research work by:
 Madhav M K,
 Gurav C G,
 Thejas
 
-Swap mutation seems to work the best among all
+Ongoing Work. Awaiting Researcg Publication. Mail madhavkashyap99@gmail.com for latest paper updates.
