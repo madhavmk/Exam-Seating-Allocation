@@ -1,4 +1,4 @@
-Exam Seating Allocation Research using Evolutionary genetic Algorithms. 
+Exam Seating Allocation Research using Evolutionary genetic Algorithms. Solves an NP Hard Combinatorial problem more efficiently with near optimal result using meta-hueristics approach.
 Research work by:
 
 Madhav M K,
